@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <!-- 4. SECURE ADMIN LOGIN MODAL (Email + Password against Backend/Env) -->
+    <!-- 4. SECURE ADMIN LOGIN MODAL -->
     <div id="adminPasswordModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-rose-500/40 rounded-3xl p-6 max-w-xs w-full shadow-2xl space-y-4">
             <div class="text-center space-y-1">
@@ -343,7 +343,7 @@
         </button>
     </nav>
 
-    <!-- SECURE ENVIRONMENT SCRIPT LOGIC -->
+    <!-- SECURE ENVIRONMENT & DIRECT DOWNLOAD SCRIPT LOGIC -->
     <script>
         let currentUser = JSON.parse(localStorage.getItem('mg_store_user')) || null;
         let selectedLang = localStorage.getItem('mg_store_lang') || null;
@@ -374,10 +374,6 @@
         let isAdminLoggedIn = false;
         let currentSelectedApp = null;
 
-        // SECURE ADMIN ENVIRONMENT CONFIGURATION
-        // Render पर Environment Variable सेट करें:
-        // Key: ADMIN_EMAIL -> Value: mgshankartech@gmail.com
-        // Key: ADMIN_PASSWORD -> Value: m@3₹¢€96Vin3
         const ADMIN_CONFIG = {
             email: window.ENV_ADMIN_EMAIL || "mgshankartech@gmail.com",
             password: window.ENV_ADMIN_PASSWORD || "m@3₹¢€96Vin3"
@@ -466,7 +462,6 @@
             document.getElementById('adminPasswordModal').classList.add('hidden');
         }
 
-        // STRICT ADMIN VERIFICATION (NO PASSWORD LEAKS / SECURE HINT)
         function verifyAdminCredentials(e) {
             e.preventDefault();
             const emailInput = document.getElementById('adminEmailInput').value.trim().toLowerCase();
@@ -617,7 +612,6 @@
             if(currentSelectedApp) startSecurityScanAndDownload();
         }
 
-        // MG APP PROTECT - VIRUS SCANNER & DIRECT MOBILE APK DOWNLOAD
         function startSecurityScanAndDownload() {
             closeAppDetails();
             const scanner = document.getElementById('scannerModal');
@@ -652,7 +646,6 @@
                     localStorage.setItem('mg_downloaded_apps', JSON.stringify(downloadedApps));
                 }
 
-                // DIRECT MOBILE DOWNLOAD TRIGGER
                 const downloadAnchor = document.createElement('a');
                 downloadAnchor.href = currentSelectedApp.link;
                 downloadAnchor.download = `${currentSelectedApp.name}.apk`;
