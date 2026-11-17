@@ -23,10 +23,10 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Install Dependencies & Capacitor CLI
+    - name: Install Dependencies & Capacitor Android Setup
       run: |
         npm install
-        npx cap init "MG Store" "com.mgshankar.appstore" --web-dir "." --yes || true
+        npx cap init "MG Store" "com.mgshankar.appstore" --web-dir "" || true
         npx cap add android
 
     - name: Build Android Debug APK
