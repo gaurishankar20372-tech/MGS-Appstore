@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MG Shankar App Store - Enterprise Cloud Edition</title>
+    <title>MG Shankar App Store - Enterprise Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -165,7 +165,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-base leading-tight text-white">MG Store</h1>
-                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Cloud Secure Hub</p>
+                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Enterprise Secure Hub</p>
             </div>
         </div>
 
@@ -343,7 +343,7 @@
         </button>
     </nav>
 
-    <!-- SECURE ENVIRONMENT & DIRECT DOWNLOAD SCRIPT LOGIC -->
+    <!-- SECURE APPLICATION SCRIPT LOGIC -->
     <script>
         let currentUser = JSON.parse(localStorage.getItem('mg_store_user')) || null;
         let selectedLang = localStorage.getItem('mg_store_lang') || null;
@@ -374,9 +374,10 @@
         let isAdminLoggedIn = false;
         let currentSelectedApp = null;
 
+        // DIRECT SECURE ADMIN CONFIGURATION (Static Site Compatible)
         const ADMIN_CONFIG = {
-            email: window.ENV_ADMIN_EMAIL || "mgshankartech@gmail.com",
-            password: window.ENV_ADMIN_PASSWORD || "m@3₹¢€96Vin3"
+            email: "mgshankartech@gmail.com",
+            password: "m@3₹¢€96Vin3"
         };
 
         function checkInit() {
