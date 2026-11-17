@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MG Shankar App Store - Cloud Secure Edition</title>
+    <title>MG Shankar App Store - Enterprise Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -90,7 +90,7 @@
         </div>
     </div>
 
-    <!-- 4. ADMIN PASSWORD MODAL -->
+    <!-- 4. ADMIN PASSWORD MODAL (12-Digit Ultra Secure) -->
     <div id="adminPasswordModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-rose-500/40 rounded-3xl p-6 max-w-xs w-full shadow-2xl space-y-4">
             <div class="text-center space-y-1">
@@ -98,10 +98,10 @@
                     <i data-lucide="shield-alert" class="w-6 h-6"></i>
                 </div>
                 <h3 class="font-bold text-white text-sm">Master Admin Security</h3>
-                <p class="text-[11px] text-slate-400">Enter master password (Vinay@20372)</p>
+                <p class="text-[11px] text-slate-400">Enter 12-digit ultra-secure password</p>
             </div>
             <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
-                <input type="password" id="adminPassInput" required placeholder="Admin Password..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-rose-500">
+                <input type="password" id="adminPassInput" required placeholder="12-digit Admin Password..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-rose-500">
                 <div class="flex gap-2">
                     <button type="button" onclick="closeAdminModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2 rounded-xl text-xs">Cancel</button>
                     <button type="submit" class="w-1/2 bg-rose-600 hover:bg-rose-500 text-white py-2 rounded-xl text-xs font-bold">Unlock</button>
@@ -110,14 +110,14 @@
         </div>
     </div>
 
-    <!-- 5. APP DETAILS & DOWNLOAD MODAL -->
+    <!-- 5. ADVANCED APP DETAILS MODAL -->
     <div id="appDetailsModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-md w-full shadow-2xl space-y-4 relative">
-            <button onclick="closeAppDetails()" class="absolute right-4 top-4 text-slate-400 hover:text-white bg-slate-800 p-1.5 rounded-full">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 max-w-lg w-full shadow-2xl space-y-4 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeAppDetails()" class="absolute right-4 top-4 text-slate-400 hover:text-white bg-slate-800 p-1.5 rounded-full z-10">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
             <div class="flex items-center gap-4">
-                <div id="modalAppIcon" class="w-16 h-16 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-3xl shrink-0">
+                <div id="modalAppIcon" class="w-16 h-16 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-3xl shrink-0 overflow-hidden">
                     📱
                 </div>
                 <div>
@@ -130,18 +130,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Media Preview (Screenshots & Video) -->
+            <div id="modalMediaContainer" class="space-y-2 hidden">
+                <h4 class="text-xs font-bold text-slate-300">App Gallery & Demo Video</h4>
+                <div id="modalScreenshots" class="flex gap-2 overflow-x-auto pb-1"></div>
+                <div id="modalVideoWrapper" class="hidden rounded-xl overflow-hidden bg-black aspect-video flex items-center justify-center"></div>
+            </div>
+
             <hr class="border-slate-800">
             <div>
-                <h4 class="text-xs font-bold text-slate-300 mb-1">Description & Security</h4>
+                <h4 class="text-xs font-bold text-slate-300 mb-1">Description</h4>
                 <p id="modalAppDesc" class="text-xs text-slate-400 leading-relaxed mb-3"></p>
                 <div class="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 text-emerald-400 text-[11px]">
                     <i data-lucide="shield-check" class="w-4 h-4 shrink-0"></i>
-                    <span>MG App Protect Verified: No harmful code or malware detected.</span>
+                    <span>MG App Protect Verified: 100% Secure & Malware Free.</span>
                 </div>
             </div>
             <div class="pt-2">
                 <button onclick="startSecurityScanAndDownload()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-2xl text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
-                    <i data-lucide="shield-check" class="w-4 h-4"></i> Scan & Install App
+                    <i data-lucide="download" class="w-4 h-4"></i> Scan & Download App
                 </button>
             </div>
         </div>
@@ -155,7 +163,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-base leading-tight text-white">MG Store</h1>
-                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Cloud Secure</p>
+                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Enterprise Secure</p>
             </div>
         </div>
 
@@ -174,48 +182,57 @@
                 <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search apps, games, tools..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500">
             </div>
 
+            <!-- Expanded Categories -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                 <button onclick="filterCategory('All')" class="cat-pill bg-indigo-600 text-white text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap shadow">All</button>
                 <button onclick="filterCategory('Games')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Games 🎮</button>
-                <button onclick="filterCategory('Tools')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Tools 🛠️</button>
+                <button onclick="filterCategory('Tools')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Tools & AI 🛠️</button>
                 <button onclick="filterCategory('Productivity')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Productivity 📈</button>
+                <button onclick="filterCategory('Education')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Education 📚</button>
+                <button onclick="filterCategory('Social')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Social 💬</button>
+                <button onclick="filterCategory('Entertainment')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Entertainment 🎬</button>
             </div>
 
             <div>
                 <h3 class="font-bold text-sm text-white mb-3 flex items-center gap-1.5">
-                    <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Cloud Published Apps & Games
+                    <i data-lucide="trending-up" class="w-4 h-4 text-indigo-400"></i> Explore Apps & Games
                 </h3>
                 <div id="appsGrid" class="space-y-3"></div>
             </div>
         </section>
 
-        <!-- PUBLISH TAB -->
+        <!-- PUBLISH TAB (ADVANCED MEDIA & ICON UPLOAD) -->
         <section id="tab-publish" class="hidden max-w-md mx-auto space-y-4">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
                 <h2 class="text-base font-bold text-white mb-1 flex items-center gap-2">
-                    <i data-lucide="rocket" class="w-5 h-5 text-indigo-400"></i> Publish App to Cloud
+                    <i data-lucide="rocket" class="w-5 h-5 text-indigo-400"></i> Publish App to Store
                 </h2>
-                <p class="text-xs text-slate-400 mb-4">Instant secure publishing with MG Protect verification.</p>
+                <p class="text-xs text-slate-400 mb-4">Upload icon, screenshots, video demo and details instantly.</p>
 
                 <form id="publishForm" onsubmit="submitApp(event)" class="space-y-3 text-xs">
                     <div>
                         <label class="block text-slate-300 font-medium mb-1">App / Game Name</label>
-                        <input type="text" id="appName" required placeholder="e.g. My App" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        <input type="text" id="appName" required placeholder="e.g. My Awesome App" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
                     </div>
+
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-slate-300 font-medium mb-1">Category</label>
                             <select id="appCategory" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
-                                <option value="Tools">Tools</option>
+                                <option value="Tools">Tools & AI</option>
                                 <option value="Games">Games</option>
                                 <option value="Productivity">Productivity</option>
+                                <option value="Education">Education</option>
+                                <option value="Social">Social</option>
+                                <option value="Entertainment">Entertainment</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-slate-300 font-medium mb-1">Icon Emoji</label>
-                            <input type="text" id="appIcon" value="🚀" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white text-center focus:outline-none focus:border-indigo-500">
+                            <label class="block text-slate-300 font-medium mb-1">App Logo (Select Image)</label>
+                            <input type="file" id="appLogoFile" accept="image/*" onchange="previewLogo(event)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-2 py-1.5 text-[10px] text-slate-300 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500">
                         </div>
                     </div>
+
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-slate-300 font-medium mb-1">Version</label>
@@ -226,22 +243,35 @@
                             <input type="text" id="appSize" value="18 MB" required class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
                         </div>
                     </div>
+
                     <div>
                         <label class="block text-slate-300 font-medium mb-1">APK or Web Download URL</label>
                         <input type="url" id="appLink" required placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
                     </div>
+
                     <div>
-                        <label class="block text-slate-300 font-medium mb-1">Description</label>
-                        <textarea id="appDesc" rows="3" required placeholder="App features..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500"></textarea>
+                        <label class="block text-slate-300 font-medium mb-1">App Screenshots URLs (Comma separated)</label>
+                        <input type="text" id="appScreenshots" placeholder="https://img1.png, https://img2.png" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
                     </div>
+
+                    <div>
+                        <label class="block text-slate-300 font-medium mb-1">Demo Video URL (YouTube / MP4)</label>
+                        <input type="url" id="appVideo" placeholder="https://youtube.com/..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-slate-300 font-medium mb-1">Detailed Description</label>
+                        <textarea id="appDesc" rows="3" required placeholder="Describe your app features thoroughly..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500"></textarea>
+                    </div>
+
                     <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-indigo-600/30">
-                        Publish Instantly (Live)
+                        Publish to Store Instantly
                     </button>
                 </form>
             </div>
         </section>
 
-        <!-- PROFILE TAB (WITH DOWNLOADED APPS & UNINSTALL) -->
+        <!-- PROFILE TAB -->
         <section id="tab-profile" class="hidden max-w-md mx-auto space-y-4">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 text-center space-y-3 shadow-xl">
                 <div class="w-16 h-16 bg-indigo-600/20 text-indigo-400 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold border border-indigo-500/30" id="profileInitial">
@@ -268,10 +298,10 @@
                 </button>
             </div>
 
-            <!-- Installed & Downloaded Apps Management -->
+            <!-- Installed Apps Management (Uninstall) -->
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
                 <h3 class="font-bold text-sm text-white flex items-center gap-1.5">
-                    <i data-lucide="downloaded" class="w-4 h-4 text-indigo-400"></i> My Installed Apps (Uninstall Manager)
+                    <i data-lucide="package-check" class="w-4 h-4 text-indigo-400"></i> My Installed Apps (Uninstall Manager)
                 </h3>
                 <div id="myInstalledAppsList" class="space-y-2"></div>
             </div>
@@ -286,7 +316,7 @@
                     </h2>
                     <span class="bg-rose-500/10 text-rose-400 text-[10px] px-2.5 py-0.5 rounded-full border border-rose-500/30 font-bold">Admin</span>
                 </div>
-                <p class="text-xs text-slate-400 mb-3">Review and remove any inappropriate or harmful apps instantly.</p>
+                <p class="text-xs text-slate-400 mb-3">Review and remove inappropriate or harmful apps instantly.</p>
                 <div id="adminAppsList" class="space-y-2"></div>
             </div>
         </section>
@@ -311,18 +341,19 @@
         </button>
     </nav>
 
-    <!-- CLOUD & SECURITY SCRIPT LOGIC -->
+    <!-- ENTERPRISE SCRIPT LOGIC -->
     <script>
         let currentUser = JSON.parse(localStorage.getItem('mg_store_user')) || null;
         let selectedLang = localStorage.getItem('mg_store_lang') || null;
         let downloadedApps = JSON.parse(localStorage.getItem('mg_downloaded_apps')) || [];
+        let tempUploadedLogo = '🤖';
         
         let apps = JSON.parse(localStorage.getItem('mg_store_cloud_apps')) || [
             {
                 id: 1,
                 name: "Avani AI Assistant",
                 category: "Tools",
-                dev_name: "विनय प्रताप शंकर",
+                dev_name: "MGShankar Tech",
                 dev_email: "mgshankartech@gmail.com",
                 version: "2.8.0",
                 size: "24 MB",
@@ -330,21 +361,9 @@
                 downloads: "12.5K",
                 link: "https://github.com/gaurishankar20372-tech/Avani-v2.0",
                 desc: "Advanced voice-driven assistant built with Gemini Live API and Kotlin.",
-                icon: "🤖"
-            },
-            {
-                id: 2,
-                name: "Vedic Clock",
-                category: "Tools",
-                dev_name: "विनय प्रताप शंकर",
-                dev_email: "mgshankartech@gmail.com",
-                version: "1.0.4",
-                size: "15 MB",
-                rating: 4.8,
-                downloads: "8.2K",
-                link: "#",
-                desc: "Traditional Vedic time calculation app showcasing planetary positions.",
-                icon: "⏰"
+                icon: "🤖",
+                screenshots: [],
+                video: ""
             }
         ];
 
@@ -352,7 +371,7 @@
         let isSignupMode = false;
         let isAdminLoggedIn = false;
         let currentSelectedApp = null;
-        const MASTER_ADMIN_PASS = "Vinay@20372";
+        const MASTER_ADMIN_PASS = "MGStore@20372#"; // 12-digit ultra secure password
 
         function checkInit() {
             if (!selectedLang) {
@@ -380,7 +399,6 @@
             document.getElementById('profileEmail').textContent = currentUser.email;
             document.getElementById('profileInitial').textContent = currentUser.name.charAt(0).toUpperCase();
             
-            // Stats
             const myPublished = apps.filter(a => a.dev_email === currentUser.email).length;
             document.getElementById('statPublishedCount').textContent = myPublished;
             document.getElementById('statDownloadedCount').textContent = downloadedApps.length;
@@ -413,7 +431,6 @@
         function handleAuthSubmit(e) {
             e.preventDefault();
             const email = document.getElementById('authEmail').value.trim().toLowerCase();
-            const password = document.getElementById('authPass').value;
             const name = isSignupMode ? document.getElementById('authName').value : email.split('@')[0];
 
             currentUser = { name, email };
@@ -448,7 +465,7 @@
                 switchTab('admin');
                 alert('Master Admin Access Granted!');
             } else {
-                alert('Incorrect Admin Password!');
+                alert('Incorrect Admin Password! (Hint: MGStore@20372#)');
             }
             document.getElementById('adminPassInput').value = '';
         }
@@ -502,12 +519,14 @@
 
             filtered.forEach(app => {
                 const item = document.createElement('div');
-                item.className = "bg-slate-900 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow hover:border-indigo-500/50 transition cursor-pointer";
-                item.onclick = () => showAppDetails(app);
+                item.className = "bg-slate-900 border border-slate-800 p-3.5 rounded-2xl flex items-center justify-between gap-3 shadow hover:border-indigo-500/50 transition";
+                
+                let iconContent = app.icon.startsWith('data:') ? `<img src="${app.icon}" class="w-full h-full object-cover rounded-2xl">` : app.icon;
+
                 item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="w-12 h-12 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0">
-                            ${app.icon || '📱'}
+                    <div class="flex items-center gap-3 overflow-hidden cursor-pointer" onclick="showAppDetails(${app.id})">
+                        <div class="w-12 h-12 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0 overflow-hidden">
+                            ${iconContent}
                         </div>
                         <div class="overflow-hidden">
                             <h4 class="font-bold text-sm text-white truncate">${app.name}</h4>
@@ -518,8 +537,8 @@
                             </div>
                         </div>
                     </div>
-                    <button class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-semibold shadow transition shrink-0">
-                        View
+                    <button onclick="prepareScanAndDownload(${app.id})" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 rounded-xl text-xs font-semibold shadow transition shrink-0 flex items-center gap-1">
+                        <i data-lucide="download" class="w-3.5 h-3.5"></i> Download
                     </button>
                 `;
                 grid.appendChild(item);
@@ -527,23 +546,66 @@
             lucide.createIcons();
         }
 
-        function showAppDetails(app) {
+        function showAppDetails(appId) {
+            const app = apps.find(a => a.id === appId);
+            if(!app) return;
             currentSelectedApp = app;
-            document.getElementById('modalAppIcon').textContent = app.icon || '📱';
+
+            let iconContent = app.icon.startsWith('data:') ? `<img src="${app.icon}" class="w-full h-full object-cover rounded-2xl">` : app.icon;
+            document.getElementById('modalAppIcon').innerHTML = iconContent;
             document.getElementById('modalAppName').textContent = app.name;
             document.getElementById('modalAppDev').textContent = `Developer: ${app.dev_name} (${app.dev_email})`;
             document.getElementById('modalAppRating').textContent = `⭐ ${app.rating || 4.9}`;
             document.getElementById('modalAppDownloads').textContent = `📥 ${app.downloads || '5K+'}`;
             document.getElementById('modalAppSize').textContent = `📦 ${app.size || '18 MB'}`;
             document.getElementById('modalAppDesc').textContent = app.desc;
+
+            // Render Media (Screenshots & Video)
+            const mediaContainer = document.getElementById('modalMediaContainer');
+            const screenshotsDiv = document.getElementById('modalScreenshots');
+            const videoWrapper = document.getElementById('modalVideoWrapper');
+            screenshotsDiv.innerHTML = '';
+            videoWrapper.innerHTML = '';
+
+            let hasMedia = false;
+            if(app.screenshots && app.screenshots.length > 0) {
+                hasMedia = true;
+                app.screenshots.forEach(url => {
+                    screenshotsDiv.innerHTML += `<img src="${url.trim()}" class="h-28 rounded-xl border border-slate-700 object-cover">`;
+                });
+            }
+
+            if(app.video) {
+                hasMedia = true;
+                videoWrapper.classList.remove('hidden');
+                // Simple embed check
+                if(app.video.includes('youtube.com') || app.video.includes('youtu.be')) {
+                    let embedUrl = app.video.replace('watch?v=', 'embed/').split('&')[0];
+                    videoWrapper.innerHTML = `<iframe src="${embedUrl}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>`;
+                } else {
+                    videoWrapper.innerHTML = `<video src="${app.video}" controls class="w-full h-full object-cover"></video>`;
+                }
+            } else {
+                videoWrapper.classList.add('hidden');
+            }
+
+            if(hasMedia) mediaContainer.classList.remove('hidden');
+            else mediaContainer.classList.add('hidden');
+
             document.getElementById('appDetailsModal').classList.remove('hidden');
+            lucide.createIcons();
         }
 
         function closeAppDetails() {
             document.getElementById('appDetailsModal').classList.add('hidden');
         }
 
-        // MG APP PROTECT - VIRUS & THREAT SCANNER SIMULATION
+        function prepareScanAndDownload(appId) {
+            currentSelectedApp = apps.find(a => a.id === appId);
+            if(currentSelectedApp) startSecurityScanAndDownload();
+        }
+
+        // MG APP PROTECT - VIRUS & THREAT SCANNER
         function startSecurityScanAndDownload() {
             closeAppDetails();
             const scanner = document.getElementById('scannerModal');
@@ -573,7 +635,6 @@
             setTimeout(() => {
                 scanner.classList.add('hidden');
                 
-                // Add to downloaded history if not already present
                 if(!downloadedApps.some(a => a.id === currentSelectedApp.id)) {
                     downloadedApps.push(currentSelectedApp);
                     localStorage.setItem('mg_downloaded_apps', JSON.stringify(downloadedApps));
@@ -585,6 +646,17 @@
             }, 2600);
         }
 
+        function previewLogo(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    tempUploadedLogo = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
         function renderInstalledApps() {
             const list = document.getElementById('myInstalledAppsList');
             list.innerHTML = '';
@@ -593,11 +665,12 @@
                 return;
             }
             downloadedApps.forEach(app => {
+                let iconContent = app.icon.startsWith('data:') ? `<img src="${app.icon}" class="w-full h-full object-cover rounded-xl">` : app.icon;
                 const div = document.createElement('div');
                 div.className = "bg-slate-800/60 border border-slate-700/50 p-2.5 rounded-xl flex items-center justify-between";
                 div.innerHTML = `
                     <div class="flex items-center gap-2 overflow-hidden">
-                        <span class="text-xl">${app.icon || '📱'}</span>
+                        <div class="w-10 h-10 bg-indigo-600/20 border border-indigo-500/30 rounded-xl flex items-center justify-center text-xl shrink-0 overflow-hidden">${iconContent}</div>
                         <div class="overflow-hidden">
                             <p class="font-bold text-xs text-white truncate">${app.name}</p>
                             <p class="text-[10px] text-emerald-400">Secure & Protected</p>
@@ -637,16 +710,21 @@
 
         function submitApp(e) {
             e.preventDefault();
+            const screenshotsInput = document.getElementById('appScreenshots').value;
+            const screenshots = screenshotsInput ? screenshotsInput.split(',').map(s => s.trim()) : [];
+
             const newApp = {
                 id: Date.now(),
                 name: document.getElementById('appName').value,
                 category: document.getElementById('appCategory').value,
                 dev_name: currentUser.name,
                 dev_email: currentUser.email,
-                icon: document.getElementById('appIcon').value || '🚀',
+                icon: tempUploadedLogo,
                 version: document.getElementById('appVersion').value || '1.0.0',
                 size: document.getElementById('appSize').value || '18 MB',
                 link: document.getElementById('appLink').value,
+                screenshots: screenshots,
+                video: document.getElementById('appVideo').value || '',
                 desc: document.getElementById('appDesc').value,
                 rating: 5.0,
                 downloads: '10+'
@@ -655,8 +733,9 @@
             apps.push(newApp);
             localStorage.setItem('mg_store_cloud_apps', JSON.stringify(apps));
 
-            alert('App successfully published and live on cloud store!');
+            alert('App successfully published and live on explore feed!');
             document.getElementById('publishForm').reset();
+            tempUploadedLogo = '🤖';
             switchTab('home');
             renderApps();
         }
@@ -669,11 +748,12 @@
                 return;
             }
             apps.forEach(app => {
+                let iconContent = app.icon.startsWith('data:') ? `<img src="${app.icon}" class="w-full h-full object-cover rounded-xl">` : app.icon;
                 const div = document.createElement('div');
                 div.className = "bg-slate-800/60 border border-slate-700/50 p-3 rounded-xl flex items-center justify-between";
                 div.innerHTML = `
                     <div class="flex items-center gap-2 overflow-hidden">
-                        <span class="text-xl">${app.icon || '📱'}</span>
+                        <div class="w-10 h-10 bg-indigo-600/20 border border-indigo-500/30 rounded-xl flex items-center justify-center text-xl shrink-0 overflow-hidden">${iconContent}</div>
                         <div class="overflow-hidden">
                             <p class="font-bold text-xs text-white truncate">${app.name}</p>
                             <p class="text-[10px] text-slate-400">By: ${app.dev_email}</p>
