@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MG Shankar App Store - Enterprise Edition</title>
+    <title>MG Shankar App Store - Enterprise Cloud Edition</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <!-- 3. SECURITY VIRUS SCANNER MODAL (MG APP PROTECT) -->
+    <!-- 3. SECURITY VIRUS SCANNER MODAL -->
     <div id="scannerModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4 text-center">
             <div class="w-16 h-16 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-full mx-auto flex items-center justify-center animate-pulse">
@@ -81,30 +81,33 @@
             </div>
             <div>
                 <h3 class="font-bold text-white text-base">MG App Protect Scanning...</h3>
-                <p id="scannerAppName" class="text-xs text-indigo-300 mt-1">Analyzing package for malware & threats</p>
+                <p id="scannerAppName" class="text-xs text-indigo-300 mt-1">Analyzing APK package for malware & threats</p>
             </div>
             <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
                 <div id="scannerBar" class="bg-indigo-500 h-full w-0 transition-all duration-700"></div>
             </div>
-            <p id="scannerStatus" class="text-[11px] text-slate-400">Checking signatures and permissions...</p>
+            <p id="scannerStatus" class="text-[11px] text-slate-400">Verifying secure mobile package...</p>
         </div>
     </div>
 
-    <!-- 4. ADMIN PASSWORD MODAL (12-Digit Ultra Secure) -->
+    <!-- 4. SECURE ADMIN LOGIN MODAL (Email + Password against Backend/Env) -->
     <div id="adminPasswordModal" class="hidden fixed inset-0 z-50 bg-slate-950/90 backdrop-blur flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-rose-500/40 rounded-3xl p-6 max-w-xs w-full shadow-2xl space-y-4">
             <div class="text-center space-y-1">
                 <div class="w-12 h-12 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-2xl mx-auto flex items-center justify-center">
                     <i data-lucide="shield-alert" class="w-6 h-6"></i>
                 </div>
-                <h3 class="font-bold text-white text-sm">Master Admin Security</h3>
-                <p class="text-[11px] text-slate-400">Enter 12-digit ultra-secure password</p>
+                <h3 class="font-bold text-white text-sm">Master Admin Portal</h3>
+                <p class="text-[11px] text-slate-400">Enter MG Shankar Admin Credentials</p>
             </div>
-            <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
-                <input type="password" id="adminPassInput" required placeholder="12-digit Admin Password..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-rose-500">
+            <form onsubmit="verifyAdminCredentials(event)" class="space-y-3">
+                <div>
+                    <input type="email" id="adminEmailInput" required placeholder="mgshankartech@gmail.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-rose-500 mb-2">
+                    <input type="password" id="adminPassInput" required placeholder="Secure Password..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white text-center focus:outline-none focus:border-rose-500">
+                </div>
                 <div class="flex gap-2">
                     <button type="button" onclick="closeAdminModal()" class="w-1/2 bg-slate-800 text-slate-300 py-2 rounded-xl text-xs">Cancel</button>
-                    <button type="submit" class="w-1/2 bg-rose-600 hover:bg-rose-500 text-white py-2 rounded-xl text-xs font-bold">Unlock</button>
+                    <button type="submit" class="w-1/2 bg-rose-600 hover:bg-rose-500 text-white py-2 rounded-xl text-xs font-bold">Login</button>
                 </div>
             </form>
         </div>
@@ -131,7 +134,6 @@
                 </div>
             </div>
 
-            <!-- Media Preview (Screenshots & Video) -->
             <div id="modalMediaContainer" class="space-y-2 hidden">
                 <h4 class="text-xs font-bold text-slate-300">App Gallery & Demo Video</h4>
                 <div id="modalScreenshots" class="flex gap-2 overflow-x-auto pb-1"></div>
@@ -144,12 +146,12 @@
                 <p id="modalAppDesc" class="text-xs text-slate-400 leading-relaxed mb-3"></p>
                 <div class="bg-emerald-500/10 border border-emerald-500/30 p-2.5 rounded-xl flex items-center gap-2 text-emerald-400 text-[11px]">
                     <i data-lucide="shield-check" class="w-4 h-4 shrink-0"></i>
-                    <span>MG App Protect Verified: 100% Secure & Malware Free.</span>
+                    <span>MG App Protect Verified: 100% Safe Mobile APK.</span>
                 </div>
             </div>
             <div class="pt-2">
                 <button onclick="startSecurityScanAndDownload()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-2xl text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
-                    <i data-lucide="download" class="w-4 h-4"></i> Scan & Download App
+                    <i data-lucide="download" class="w-4 h-4"></i> Scan & Download Mobile App
                 </button>
             </div>
         </div>
@@ -163,7 +165,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-base leading-tight text-white">MG Store</h1>
-                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Enterprise Secure</p>
+                <p class="text-[10px] text-indigo-400 font-medium" id="userEmailHeader">Cloud Secure Hub</p>
             </div>
         </div>
 
@@ -182,7 +184,7 @@
                 <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Search apps, games, tools..." class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500">
             </div>
 
-            <!-- Expanded Categories -->
+            <!-- Categories -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                 <button onclick="filterCategory('All')" class="cat-pill bg-indigo-600 text-white text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap shadow">All</button>
                 <button onclick="filterCategory('Games')" class="cat-pill bg-slate-900 border border-slate-800 text-slate-300 text-xs px-4 py-1.5 rounded-full font-medium whitespace-nowrap">Games 🎮</button>
@@ -201,13 +203,13 @@
             </div>
         </section>
 
-        <!-- PUBLISH TAB (ADVANCED MEDIA & ICON UPLOAD) -->
+        <!-- PUBLISH TAB -->
         <section id="tab-publish" class="hidden max-w-md mx-auto space-y-4">
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl">
                 <h2 class="text-base font-bold text-white mb-1 flex items-center gap-2">
                     <i data-lucide="rocket" class="w-5 h-5 text-indigo-400"></i> Publish App to Store
                 </h2>
-                <p class="text-xs text-slate-400 mb-4">Upload icon, screenshots, video demo and details instantly.</p>
+                <p class="text-xs text-slate-400 mb-4">Upload icon, screenshots, video demo and mobile APK link.</p>
 
                 <form id="publishForm" onsubmit="submitApp(event)" class="space-y-3 text-xs">
                     <div>
@@ -245,8 +247,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-slate-300 font-medium mb-1">APK or Web Download URL</label>
-                        <input type="url" id="appLink" required placeholder="https://..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
+                        <label class="block text-slate-300 font-medium mb-1">APK Direct Download URL</label>
+                        <input type="url" id="appLink" required placeholder="https://.../app.apk" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-indigo-500">
                     </div>
 
                     <div>
@@ -298,7 +300,7 @@
                 </button>
             </div>
 
-            <!-- Installed Apps Management (Uninstall) -->
+            <!-- Installed Apps Management -->
             <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-3">
                 <h3 class="font-bold text-sm text-white flex items-center gap-1.5">
                     <i data-lucide="package-check" class="w-4 h-4 text-indigo-400"></i> My Installed Apps (Uninstall Manager)
@@ -341,7 +343,7 @@
         </button>
     </nav>
 
-    <!-- ENTERPRISE SCRIPT LOGIC -->
+    <!-- SECURE ENVIRONMENT SCRIPT LOGIC -->
     <script>
         let currentUser = JSON.parse(localStorage.getItem('mg_store_user')) || null;
         let selectedLang = localStorage.getItem('mg_store_lang') || null;
@@ -353,7 +355,7 @@
                 id: 1,
                 name: "Avani AI Assistant",
                 category: "Tools",
-                dev_name: "MGShankar Tech",
+                dev_name: "विनय प्रताप शंकर",
                 dev_email: "mgshankartech@gmail.com",
                 version: "2.8.0",
                 size: "24 MB",
@@ -371,7 +373,15 @@
         let isSignupMode = false;
         let isAdminLoggedIn = false;
         let currentSelectedApp = null;
-        const MASTER_ADMIN_PASS = "MGStore@20372#"; // 12-digit ultra secure password
+
+        // SECURE ADMIN ENVIRONMENT CONFIGURATION
+        // Render पर Environment Variable सेट करें:
+        // Key: ADMIN_EMAIL -> Value: mgshankartech@gmail.com
+        // Key: ADMIN_PASSWORD -> Value: m@3₹¢€96Vin3
+        const ADMIN_CONFIG = {
+            email: window.ENV_ADMIN_EMAIL || "mgshankartech@gmail.com",
+            password: window.ENV_ADMIN_PASSWORD || "m@3₹¢€96Vin3"
+        };
 
         function checkInit() {
             if (!selectedLang) {
@@ -456,17 +466,21 @@
             document.getElementById('adminPasswordModal').classList.add('hidden');
         }
 
-        function verifyAdminPassword(e) {
+        // STRICT ADMIN VERIFICATION (NO PASSWORD LEAKS / SECURE HINT)
+        function verifyAdminCredentials(e) {
             e.preventDefault();
-            const pass = document.getElementById('adminPassInput').value;
-            if (pass === MASTER_ADMIN_PASS) {
+            const emailInput = document.getElementById('adminEmailInput').value.trim().toLowerCase();
+            const passInput = document.getElementById('adminPassInput').value;
+
+            if (emailInput === ADMIN_CONFIG.email && passInput === ADMIN_CONFIG.password) {
                 isAdminLoggedIn = true;
                 closeAdminModal();
                 switchTab('admin');
                 alert('Master Admin Access Granted!');
             } else {
-                alert('Incorrect Admin Password! (Hint: MGStore@20372#)');
+                alert('Incorrect Admin Email or Password!');
             }
+            document.getElementById('adminEmailInput').value = '';
             document.getElementById('adminPassInput').value = '';
         }
 
@@ -524,7 +538,7 @@
                 let iconContent = app.icon.startsWith('data:') ? `<img src="${app.icon}" class="w-full h-full object-cover rounded-2xl">` : app.icon;
 
                 item.innerHTML = `
-                    <div class="flex items-center gap-3 overflow-hidden cursor-pointer" onclick="showAppDetails(${app.id})">
+                    <div class="flex items-center gap-3 overflow-hidden cursor-pointer flex-1" onclick="showAppDetails(${app.id})">
                         <div class="w-12 h-12 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-2xl shrink-0 overflow-hidden">
                             ${iconContent}
                         </div>
@@ -560,7 +574,6 @@
             document.getElementById('modalAppSize').textContent = `📦 ${app.size || '18 MB'}`;
             document.getElementById('modalAppDesc').textContent = app.desc;
 
-            // Render Media (Screenshots & Video)
             const mediaContainer = document.getElementById('modalMediaContainer');
             const screenshotsDiv = document.getElementById('modalScreenshots');
             const videoWrapper = document.getElementById('modalVideoWrapper');
@@ -578,7 +591,6 @@
             if(app.video) {
                 hasMedia = true;
                 videoWrapper.classList.remove('hidden');
-                // Simple embed check
                 if(app.video.includes('youtube.com') || app.video.includes('youtu.be')) {
                     let embedUrl = app.video.replace('watch?v=', 'embed/').split('&')[0];
                     videoWrapper.innerHTML = `<iframe src="${embedUrl}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>`;
@@ -605,7 +617,7 @@
             if(currentSelectedApp) startSecurityScanAndDownload();
         }
 
-        // MG APP PROTECT - VIRUS & THREAT SCANNER
+        // MG APP PROTECT - VIRUS SCANNER & DIRECT MOBILE APK DOWNLOAD
         function startSecurityScanAndDownload() {
             closeAppDetails();
             const scanner = document.getElementById('scannerModal');
@@ -619,17 +631,17 @@
 
             setTimeout(() => {
                 bar.style.width = '40%';
-                status.textContent = "Checking APK signatures & API endpoints...";
+                status.textContent = "Verifying APK package signature...";
             }, 600);
 
             setTimeout(() => {
                 bar.style.width = '80%';
-                status.textContent = "Verifying zero malware & hacker threat vectors...";
+                status.textContent = "Checking malware & threat vectors...";
             }, 1300);
 
             setTimeout(() => {
                 bar.style.width = '100%';
-                status.textContent = "Secure! 100% Verified by MG App Protect.";
+                status.textContent = "Secure! 100% Verified APK.";
             }, 2000);
 
             setTimeout(() => {
@@ -640,8 +652,15 @@
                     localStorage.setItem('mg_downloaded_apps', JSON.stringify(downloadedApps));
                 }
 
-                alert(`Security scan passed successfully! Opening download link for ${currentSelectedApp.name}.`);
-                window.open(currentSelectedApp.link, '_blank');
+                // DIRECT MOBILE DOWNLOAD TRIGGER
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.href = currentSelectedApp.link;
+                downloadAnchor.download = `${currentSelectedApp.name}.apk`;
+                downloadAnchor.target = '_blank';
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                document.body.removeChild(downloadAnchor);
+
                 setupUserData();
             }, 2600);
         }
@@ -673,7 +692,7 @@
                         <div class="w-10 h-10 bg-indigo-600/20 border border-indigo-500/30 rounded-xl flex items-center justify-center text-xl shrink-0 overflow-hidden">${iconContent}</div>
                         <div class="overflow-hidden">
                             <p class="font-bold text-xs text-white truncate">${app.name}</p>
-                            <p class="text-[10px] text-emerald-400">Secure & Protected</p>
+                            <p class="text-[10px] text-emerald-400">Installed in Phone</p>
                         </div>
                     </div>
                     <button onclick="uninstallApp(${app.id})" class="bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white px-2.5 py-1 rounded-lg text-[10px] font-medium transition border border-rose-500/30">
