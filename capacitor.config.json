@@ -1,6 +1,6 @@
 {
   "appId": "com.mgshankar.appstore",
   "appName": "MG Store",
-  "webDir": ".",
+  "webDir": "",
   "bundledWebRuntime": false
 }
